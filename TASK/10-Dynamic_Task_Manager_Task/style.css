@@ -1,4 +1,4 @@
-
+/* ===== GLOBAL ===== */
 
 *{
   margin:0;
@@ -13,14 +13,14 @@ body{
   color:#2d3436;
 }
 
-/* layout */
+/* ===== LAYOUT ===== */
 
 .layout{
   display:flex;
   min-height:100vh;
 }
 
-/* sidebar */
+/* ===== SIDEBAR ===== */
 
 .sidebar{
   width:260px;
@@ -61,14 +61,14 @@ body{
   color:#fff;
 }
 
-/* main */
+/* ===== MAIN ===== */
 
 .main{
   flex:1;
   padding:25px;
 }
 
-/* mobile view */
+/* ===== MOBILE MENU ===== */
 
 .menu-btn{
   display:none;
@@ -82,7 +82,7 @@ body{
   margin-bottom:15px;
 }
 
-/* header */
+/* ===== HEADER ===== */
 
 .header{
   background:#fff;
@@ -131,7 +131,7 @@ body{
   box-shadow:0 0 0 4px rgba(108,92,231,0.15);
 }
 
-/* button*/
+/* ===== BUTTON ===== */
 
 .add-btn{
   background:linear-gradient(135deg,#6c5ce7,#8b7cff);
@@ -150,7 +150,7 @@ body{
   transform:translateY(-4px);
 }
 
-/* stats*/
+/* ===== STATS ===== */
 
 .stats{
   display:grid;
@@ -183,7 +183,7 @@ body{
   color:#6c5ce7;
 }
 
-/* board */
+/* ===== BOARD ===== */
 
 .board{
   display:grid;
@@ -191,7 +191,7 @@ body{
   gap:25px;
 }
 
-/* columns */
+/* ===== COLUMN ===== */
 
 .column{
   background:#eef2ff;
@@ -227,7 +227,7 @@ body{
   font-weight:700;
 }
 
-/* task card */
+/* ===== TASK CARD ===== */
 
 .card{
   background:#fff;
@@ -263,7 +263,7 @@ body{
   font-size:13px;
 }
 
-
+/* ===== PRIORITY TAG ===== */
 
 .tag{
   display:inline-block;

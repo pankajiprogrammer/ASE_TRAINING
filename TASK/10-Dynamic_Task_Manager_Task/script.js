@@ -1,13 +1,13 @@
-// local storage
+// ===== LOCAL STORAGE =====
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-
+// ===== VARIABLES =====
 
 let editIndex = null;
 let dragTaskId = null;
 
-// select dom elements
+// ===== DOM ELEMENTS =====
 
 const modal = document.getElementById("modal");
 
@@ -23,13 +23,13 @@ const todoColumn = document.getElementById("todo");
 const progressColumn = document.getElementById("progress");
 const doneColumn = document.getElementById("done");
 
-
+// ===== MOBILE MENU =====
 
 function toggleMenu() {
   document.querySelector(".sidebar").classList.toggle("show");
 }
 
-// open model
+// ===== OPEN MODAL =====
 
 function openModal(index = null) {
 
@@ -65,7 +65,7 @@ function openModal(index = null) {
 
 }
 
-// close model
+// ===== CLOSE MODAL =====
 
 function closeModal() {
 
@@ -73,7 +73,7 @@ function closeModal() {
 
 }
 
-// save task
+// ===== SAVE TASK =====
 
 function saveTask() {
 
@@ -134,7 +134,7 @@ function saveTask() {
 
 }
 
-// delete task
+// ===== DELETE TASK =====
 
 function deleteTask(id) {
 
@@ -158,8 +158,11 @@ function deleteTask(id) {
 
 }
 
-function clear_col(){
+// ===== RENDER TASKS =====
 
+function renderTasks() {
+
+  // Clear Columns
 
   todoColumn.innerHTML = `
     <div class="column-header">
@@ -182,12 +185,21 @@ function clear_col(){
     </div>
   `;
 
-}
+  // Search + Filter
 
-function loop_Task(searchValue, filterValue, todoCount, progressCount, doneCount)
-{
+  const searchValue = searchInput.value.toLowerCase();
 
-   tasks.forEach((task, index) => {
+  const filterValue = filterInput.value;
+
+  // Counters
+
+  let todoCount = 0;
+  let progressCount = 0;
+  let doneCount = 0;
+
+  // Loop Tasks
+
+  tasks.forEach((task, index) => {
 
     // Search Logic
 
@@ -247,7 +259,7 @@ function loop_Task(searchValue, filterValue, todoCount, progressCount, doneCount
 
     `;
 
-    
+    // ===== DRAG START =====
 
     card.addEventListener("dragstart", () => {
 
@@ -255,7 +267,7 @@ function loop_Task(searchValue, filterValue, todoCount, progressCount, doneCount
 
     });
 
-    
+    // ===== APPEND CARD =====
 
     if (task.status === "todo") {
 
@@ -283,8 +295,7 @@ function loop_Task(searchValue, filterValue, todoCount, progressCount, doneCount
 
   });
 
-
-    // ===== UPDATE COUNTS =====
+  // ===== UPDATE COUNTS =====
 
   document.querySelector("#todo .task-count").innerText = todoCount;
 
@@ -301,38 +312,12 @@ function loop_Task(searchValue, filterValue, todoCount, progressCount, doneCount
   document.getElementById("doneTasks").innerText = doneCount;
 
   // ===== SAVE STORAGE =====
+
   localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-// ===== RENDER TASKS =====
-
-function renderTasks() {
-
-  // Clear Columns
-
-  clear_col();
-
-
-  // Search + Filter
-
-  const searchValue = searchInput.value.toLowerCase();
-
-  const filterValue = filterInput.value;
-
-  // Counters
-
-  let todoCount = 0;
-  let progressCount = 0;
-  let doneCount = 0;
-
-  // Loop Tasks
-
- 
-  loop_Task(searchValue, filterValue, todoCount, progressCount, doneCount)
 
 }
 
-// drag and drop
+// ===== DRAG DROP =====
 
 document.querySelectorAll(".column").forEach(column => {
 
@@ -374,17 +359,15 @@ document.querySelectorAll(".column").forEach(column => {
 
 });
 
-// search event
+// ===== SEARCH =====
 
 searchInput.addEventListener("input", renderTasks);
 
-
-// filter event
+// ===== FILTER =====
 
 filterInput.addEventListener("change", renderTasks);
 
-
-// close model on outside click
+// ===== CLOSE MODAL OUTSIDE CLICK =====
 
 window.addEventListener("click", (e) => {
 
@@ -396,6 +379,6 @@ window.addEventListener("click", (e) => {
 
 });
 
+// ===== INITIAL RENDER =====
 
-// start
 renderTasks();
