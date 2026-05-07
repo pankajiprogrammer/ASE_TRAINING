@@ -1,106 +1,384 @@
-let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+// ===== LOCAL STORAGE =====
+
+let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+
+// ===== VARIABLES =====
+
 let editIndex = null;
-let dragId = null;
+let dragTaskId = null;
 
-const modal = document.getElementById('modal');
+// ===== DOM ELEMENTS =====
 
-function openModal(i=null){
-  modal.style.display='flex';
+const modal = document.getElementById("modal");
 
-  if(i!==null){
-    editIndex=i;
-    let t=tasks[i];
-    title.value=t.title;
-    desc.value=t.desc;
-    priority.value=t.priority;
-    status.value=t.status;
-  }else{
-    editIndex=null;
-    title.value='';
-    desc.value='';
-  }
+const titleInput = document.getElementById("title");
+const descInput = document.getElementById("desc");
+const priorityInput = document.getElementById("priority");
+const statusInput = document.getElementById("status");
+
+const searchInput = document.getElementById("search");
+const filterInput = document.getElementById("filter");
+
+const todoColumn = document.getElementById("todo");
+const progressColumn = document.getElementById("progress");
+const doneColumn = document.getElementById("done");
+
+// ===== MOBILE MENU =====
+
+function toggleMenu() {
+  document.querySelector(".sidebar").classList.toggle("show");
 }
 
-function closeModal(){modal.style.display='none'}
+// ===== OPEN MODAL =====
 
-function saveTask(){
-  if(!title.value) return alert("Title required");
+function openModal(index = null) {
 
-  let task={
-    id:Date.now(),
-    title:title.value,
-    desc:desc.value,
-    priority:priority.value,
-    status:status.value,
-    date:new Date().toLocaleDateString()
+  modal.style.display = "flex";
+
+  // Edit Task
+
+  if (index !== null) {
+
+    editIndex = index;
+
+    const task = tasks[index];
+
+    titleInput.value = task.title;
+    descInput.value = task.desc;
+    priorityInput.value = task.priority;
+    statusInput.value = task.status;
+
+  }
+
+  // New Task
+
+  else {
+
+    editIndex = null;
+
+    titleInput.value = "";
+    descInput.value = "";
+    priorityInput.value = "Medium";
+    statusInput.value = "todo";
+
+  }
+
+}
+
+// ===== CLOSE MODAL =====
+
+function closeModal() {
+
+  modal.style.display = "none";
+
+}
+
+// ===== SAVE TASK =====
+
+function saveTask() {
+
+  // Validation
+
+  if (!titleInput.value.trim()) {
+
+    alert("Please enter task title");
+    return;
+
+  }
+
+  // Task Object
+
+  const task = {
+
+    id: Date.now(),
+
+    title: titleInput.value.trim(),
+
+    desc: descInput.value.trim(),
+
+    priority: priorityInput.value,
+
+    status: statusInput.value,
+
+    date: new Date().toLocaleDateString()
+
   };
 
-  if(editIndex!==null) tasks[editIndex]=task;
-  else tasks.push(task);
+  // Edit Existing Task
 
-  localStorage.setItem('tasks',JSON.stringify(tasks));
-  closeModal();
-  render();
-}
+  if (editIndex !== null) {
 
-function deleteTask(id){
-  if(confirm("Delete task?")){
-    tasks=tasks.filter(t=>t.id!==id);
-    render();
+    tasks[editIndex] = task;
+
   }
+
+  // Add New Task
+
+  else {
+
+    tasks.push(task);
+
+  }
+
+  // Save Local Storage
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  // Close Modal
+
+  closeModal();
+
+  // Re-render
+
+  renderTasks();
+
 }
 
-function render(){
-  let todo=document.getElementById('todo');
-  let progress=document.getElementById('progress');
-  let done=document.getElementById('done');
+// ===== DELETE TASK =====
 
-  todo.innerHTML=`<h3>To Do (${tasks.filter(t=>t.status==='todo').length})</h3>`;
-  progress.innerHTML=`<h3>In Progress (${tasks.filter(t=>t.status==='progress').length})</h3>`;
-  done.innerHTML=`<h3>Completed (${tasks.filter(t=>t.status==='done').length})</h3>`;
+function deleteTask(id) {
 
-  totalTasks.innerText=tasks.length;
-  progressTasks.innerText=tasks.filter(t=>t.status==='progress').length;
-  doneTasks.innerText=tasks.filter(t=>t.status==='done').length;
+  const confirmDelete = confirm(
+    "Are you sure you want to delete this task?"
+  );
 
-  tasks.forEach((t,i)=>{
-    if(filter.value && t.priority!==filter.value) return;
-    if(search.value && !t.title.toLowerCase().includes(search.value.toLowerCase())) return;
+  if (!confirmDelete) return;
 
-    let card=document.createElement('div');
-    card.className='card';
-    card.draggable=true;
+  const secondConfirm = confirm(
+    "This action cannot be undone!"
+  );
 
-    card.innerHTML=`
-      <span class="tag ${t.priority.toLowerCase()}">${t.priority}</span>
-      <h4>${t.title}</h4>
-      <p>${t.desc}</p>
-      <small>${t.date}</small><br>
-      <button onclick="openModal(${i})">Edit</button>
-      <button onclick="deleteTask(${t.id})">Delete</button>
+  if (!secondConfirm) return;
+
+  tasks = tasks.filter(task => task.id !== id);
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
+  renderTasks();
+
+}
+
+// ===== RENDER TASKS =====
+
+function renderTasks() {
+
+  // Clear Columns
+
+  todoColumn.innerHTML = `
+    <div class="column-header">
+      <h2>To Do</h2>
+      <span class="task-count">0</span>
+    </div>
+  `;
+
+  progressColumn.innerHTML = `
+    <div class="column-header">
+      <h2>In Progress</h2>
+      <span class="task-count">0</span>
+    </div>
+  `;
+
+  doneColumn.innerHTML = `
+    <div class="column-header">
+      <h2>Completed</h2>
+      <span class="task-count">0</span>
+    </div>
+  `;
+
+  // Search + Filter
+
+  const searchValue = searchInput.value.toLowerCase();
+
+  const filterValue = filterInput.value;
+
+  // Counters
+
+  let todoCount = 0;
+  let progressCount = 0;
+  let doneCount = 0;
+
+  // Loop Tasks
+
+  tasks.forEach((task, index) => {
+
+    // Search Logic
+
+    const matchSearch =
+      task.title.toLowerCase().includes(searchValue) ||
+      task.desc.toLowerCase().includes(searchValue);
+
+    // Filter Logic
+
+    const matchFilter =
+      filterValue === "" ||
+      task.priority === filterValue;
+
+    if (!matchSearch || !matchFilter) return;
+
+    // Create Card
+
+    const card = document.createElement("div");
+
+    card.className = "card";
+
+    card.draggable = true;
+
+    // Card HTML
+
+    card.innerHTML = `
+
+      <span class="tag ${task.priority.toLowerCase()}">
+        ${task.priority}
+      </span>
+
+      <h4>${task.title}</h4>
+
+      <p>
+        ${task.desc || "No description available"}
+      </p>
+
+      <small>
+        Created : ${task.date}
+      </small>
+
+      <div class="card-buttons">
+
+        <button
+          class="edit-btn"
+          onclick="openModal(${index})">
+          Edit
+        </button>
+
+        <button
+          class="delete-btn"
+          onclick="deleteTask(${task.id})">
+          Delete
+        </button>
+
+      </div>
+
     `;
 
-    card.ondragstart=()=>dragId=t.id;
+    // ===== DRAG START =====
 
-    document.getElementById(t.status).appendChild(card);
+    card.addEventListener("dragstart", () => {
+
+      dragTaskId = task.id;
+
+    });
+
+    // ===== APPEND CARD =====
+
+    if (task.status === "todo") {
+
+      todoColumn.appendChild(card);
+
+      todoCount++;
+
+    }
+
+    else if (task.status === "progress") {
+
+      progressColumn.appendChild(card);
+
+      progressCount++;
+
+    }
+
+    else if (task.status === "done") {
+
+      doneColumn.appendChild(card);
+
+      doneCount++;
+
+    }
+
   });
 
-  localStorage.setItem('tasks',JSON.stringify(tasks));
+  // ===== UPDATE COUNTS =====
+
+  document.querySelector("#todo .task-count").innerText = todoCount;
+
+  document.querySelector("#progress .task-count").innerText = progressCount;
+
+  document.querySelector("#done .task-count").innerText = doneCount;
+
+  // ===== UPDATE STATS =====
+
+  document.getElementById("totalTasks").innerText = tasks.length;
+
+  document.getElementById("progressTasks").innerText = progressCount;
+
+  document.getElementById("doneTasks").innerText = doneCount;
+
+  // ===== SAVE STORAGE =====
+
+  localStorage.setItem("tasks", JSON.stringify(tasks));
+
 }
 
-/* Drag Drop */
-document.querySelectorAll('.column').forEach(col=>{
-  col.ondragover=(e)=>e.preventDefault();
+// ===== DRAG DROP =====
 
-  col.ondrop=()=>{
-    let task=tasks.find(t=>t.id===dragId);
-    task.status=col.id;
-    render();
-  };
+document.querySelectorAll(".column").forEach(column => {
+
+  // Drag Over
+
+  column.addEventListener("dragover", (e) => {
+
+    e.preventDefault();
+
+    column.classList.add("drag-over");
+
+  });
+
+  // Drag Leave
+
+  column.addEventListener("dragleave", () => {
+
+    column.classList.remove("drag-over");
+
+  });
+
+  // Drop
+
+  column.addEventListener("drop", () => {
+
+    column.classList.remove("drag-over");
+
+    const task = tasks.find(t => t.id === dragTaskId);
+
+    if (task) {
+
+      task.status = column.id;
+
+      renderTasks();
+
+    }
+
+  });
+
 });
 
-/* Search + Filter */
-search.oninput=render;
-filter.onchange=render;
+// ===== SEARCH =====
 
-render();
+searchInput.addEventListener("input", renderTasks);
+
+// ===== FILTER =====
+
+filterInput.addEventListener("change", renderTasks);
+
+// ===== CLOSE MODAL OUTSIDE CLICK =====
+
+window.addEventListener("click", (e) => {
+
+  if (e.target === modal) {
+
+    closeModal();
+
+  }
+
+});
+
+// ===== INITIAL RENDER =====
+
+renderTasks();
