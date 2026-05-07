@@ -1,100 +1,203 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Lumina Task Board</title>
+
   <link rel="stylesheet" href="style.css">
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
 </head>
+
 <body>
 
-<div class="layout">
+  <div class="layout">
 
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2 class="logo">Lumina</h2>
-    <ul>
-      <li class="active">Boards</li>
-      <li>Timeline</li>
-      <li>Team</li>
-    </ul>
-  </aside>
+    <!-- Sidebar -->
 
-  <!-- Main -->
-  <div class="main">
+    <aside class="sidebar">
 
-    <!-- Header -->
-    <header class="header">
-      <div>
-        <h2>Dashboard</h2>
-        <p class="subtitle">Manage your tasks 🚀</p>
+      <div class="sidebar-top">
+        <h2 class="logo">Lumina</h2>
       </div>
 
-      <div class="header-actions">
-        <input type="text" id="search" placeholder="Search tasks...">
-        <select id="filter">
-          <option value="">All</option>
-          <option value="High">High</option>
-          <option value="Medium">Medium</option>
-          <option value="Low">Low</option>
-        </select>
-        <button class="add-btn" onclick="openModal()">+ Add Task</button>
-      </div>
-    </header>
+      <ul class="menu">
+        <li class="active">📋 Boards</li>
+        <li>📅 Timeline</li>
+        <li>👨‍💻 Team</li>
+        <li>⚙ Settings</li>
+      </ul>
 
-    <!-- Stats -->
-    <div class="stats">
-      <div class="stat-card">
-        <h4>Total Tasks</h4>
-        <p id="totalTasks">0</p>
-      </div>
-      <div class="stat-card">
-        <h4>In Progress</h4>
-        <p id="progressTasks">0</p>
-      </div>
-      <div class="stat-card">
-        <h4>Completed</h4>
-        <p id="doneTasks">0</p>
-      </div>
-    </div>
+    </aside>
 
-    <!-- Board -->
-    <div class="board">
-      <div class="column" id="todo"></div>
-      <div class="column" id="progress"></div>
-      <div class="column" id="done"></div>
+    <!-- Main -->
+
+    <div class="main">
+
+      <!-- Mobile Menu Button -->
+
+      <button class="menu-btn" onclick="toggleMenu()">☰</button>
+
+      <!-- Header -->
+
+      <header class="header">
+
+        <div class="header-left">
+          <h1>Task Dashboard</h1>
+          <p>Manage your projects and tasks easily 🚀</p>
+        </div>
+
+        <div class="header-actions">
+
+          <input
+            type="text"
+            id="search"
+            placeholder="Search tasks...">
+
+          <select id="filter">
+            <option value="">All Priority</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+
+          <button
+            class="add-btn"
+            onclick="openModal()">
+            + Add Task
+          </button>
+
+        </div>
+
+      </header>
+
+      <!-- Stats -->
+
+      <section class="stats">
+
+        <div class="stat-card">
+          <h3>Total Tasks</h3>
+          <p id="totalTasks">0</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>In Progress</h3>
+          <p id="progressTasks">0</p>
+        </div>
+
+        <div class="stat-card">
+          <h3>Completed</h3>
+          <p id="doneTasks">0</p>
+        </div>
+
+      </section>
+
+      <!-- Board -->
+
+      <section class="board">
+
+        <!-- Todo -->
+
+        <div
+          class="column"
+          id="todo">
+
+          <div class="column-header">
+            <h2>To Do</h2>
+            <span class="task-count">0</span>
+          </div>
+
+        </div>
+
+        <!-- Progress -->
+
+        <div
+          class="column"
+          id="progress">
+
+          <div class="column-header">
+            <h2>In Progress</h2>
+            <span class="task-count">0</span>
+          </div>
+
+        </div>
+
+        <!-- Done -->
+
+        <div
+          class="column"
+          id="done">
+
+          <div class="column-header">
+            <h2>Completed</h2>
+            <span class="task-count">0</span>
+          </div>
+
+        </div>
+
+      </section>
+
     </div>
 
   </div>
-</div>
 
-<!-- Modal -->
-<div class="modal" id="modal">
-  <div class="modal-box">
-    <h3>Task</h3>
+  <!-- Modal -->
 
-    <input id="title" placeholder="Title">
-    <textarea id="desc" placeholder="Description"></textarea>
+  <div
+    class="modal"
+    id="modal">
 
-    <select id="priority">
-      <option>High</option>
-      <option>Medium</option>
-      <option>Low</option>
-    </select>
+    <div class="modal-box">
 
-    <select id="status">
-      <option value="todo">To Do</option>
-      <option value="progress">In Progress</option>
-      <option value="done">Completed</option>
-    </select>
+      <h2>Create Task</h2>
 
-    <div class="modal-actions">
-      <button onclick="saveTask()" class="add-btn">Save</button>
-      <button onclick="closeModal()">Cancel</button>
+      <input
+        type="text"
+        id="title"
+        placeholder="Task Title">
+
+      <textarea
+        id="desc"
+        placeholder="Task Description"></textarea>
+
+      <select id="priority">
+        <option>High</option>
+        <option>Medium</option>
+        <option>Low</option>
+      </select>
+
+      <select id="status">
+        <option value="todo">To Do</option>
+        <option value="progress">In Progress</option>
+        <option value="done">Completed</option>
+      </select>
+
+      <div class="modal-actions">
+
+        <button
+          class="save-btn"
+          onclick="saveTask()">
+          Save Task
+        </button>
+
+        <button
+          class="cancel-btn"
+          onclick="closeModal()">
+          Cancel
+        </button>
+
+      </div>
+
     </div>
-  </div>
-</div>
 
-<script src="script.js"></script>
+  </div>
+
+  <script src="script.js"></script>
+
 </body>
+
 </html>
