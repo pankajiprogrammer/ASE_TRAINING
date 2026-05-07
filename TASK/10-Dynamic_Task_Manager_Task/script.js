@@ -1,13 +1,14 @@
-// ===== LOCAL STORAGE =====
 
+// get task from local storage or initialize empty array
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-// ===== VARIABLES =====
+
+// required variable
 
 let editIndex = null;
 let dragTaskId = null;
 
-// ===== DOM ELEMENTS =====
+// dom elements
 
 const modal = document.getElementById("modal");
 
@@ -23,13 +24,13 @@ const todoColumn = document.getElementById("todo");
 const progressColumn = document.getElementById("progress");
 const doneColumn = document.getElementById("done");
 
-// ===== MOBILE MENU =====
+// mobile menu toggle
 
 function toggleMenu() {
   document.querySelector(".sidebar").classList.toggle("show");
 }
 
-// ===== OPEN MODAL =====
+// open model for new task or edit task
 
 function openModal(index = null) {
 
@@ -65,7 +66,7 @@ function openModal(index = null) {
 
 }
 
-// ===== CLOSE MODAL =====
+// cose model
 
 function closeModal() {
 
@@ -73,7 +74,7 @@ function closeModal() {
 
 }
 
-// ===== SAVE TASK =====
+// save task
 
 function saveTask() {
 
@@ -134,7 +135,7 @@ function saveTask() {
 
 }
 
-// ===== DELETE TASK =====
+// delete task
 
 function deleteTask(id) {
 
@@ -158,7 +159,7 @@ function deleteTask(id) {
 
 }
 
-// ===== RENDER TASKS =====
+/
 
 function renderTasks() {
 
@@ -259,15 +260,14 @@ function renderTasks() {
 
     `;
 
-    // ===== DRAG START =====
-
+    
     card.addEventListener("dragstart", () => {
 
       dragTaskId = task.id;
 
     });
 
-    // ===== APPEND CARD =====
+   
 
     if (task.status === "todo") {
 
@@ -295,7 +295,7 @@ function renderTasks() {
 
   });
 
-  // ===== UPDATE COUNTS =====
+  // update counts
 
   document.querySelector("#todo .task-count").innerText = todoCount;
 
@@ -303,7 +303,7 @@ function renderTasks() {
 
   document.querySelector("#done .task-count").innerText = doneCount;
 
-  // ===== UPDATE STATS =====
+  // update total counts
 
   document.getElementById("totalTasks").innerText = tasks.length;
 
@@ -311,13 +311,13 @@ function renderTasks() {
 
   document.getElementById("doneTasks").innerText = doneCount;
 
-  // ===== SAVE STORAGE =====
+  // save in local storage 
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
 }
 
-// ===== DRAG DROP =====
+
 
 document.querySelectorAll(".column").forEach(column => {
 
@@ -359,15 +359,15 @@ document.querySelectorAll(".column").forEach(column => {
 
 });
 
-// ===== SEARCH =====
+// search tasks
 
 searchInput.addEventListener("input", renderTasks);
 
-// ===== FILTER =====
+// filter tasks
 
 filterInput.addEventListener("change", renderTasks);
 
-// ===== CLOSE MODAL OUTSIDE CLICK =====
+// close model outside click
 
 window.addEventListener("click", (e) => {
 
@@ -379,6 +379,6 @@ window.addEventListener("click", (e) => {
 
 });
 
-// ===== INITIAL RENDER =====
+// render tasks on page load
 
 renderTasks();
