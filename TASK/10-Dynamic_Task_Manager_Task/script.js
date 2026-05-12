@@ -1,13 +1,13 @@
-// ===== LOCAL STORAGE =====
+
 
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-// ===== VARIABLES =====
+
 
 let editIndex = null;
 let dragTaskId = null;
 
-// ===== DOM ELEMENTS =====
+
 
 const modal = document.getElementById("modal");
 
@@ -23,13 +23,13 @@ const todoColumn = document.getElementById("todo");
 const progressColumn = document.getElementById("progress");
 const doneColumn = document.getElementById("done");
 
-// ===== MOBILE MENU =====
+
 
 function toggleMenu() {
   document.querySelector(".sidebar").classList.toggle("show");
 }
 
-// ===== OPEN MODAL =====
+
 
 function openModal(index = null) {
 
@@ -65,7 +65,6 @@ function openModal(index = null) {
 
 }
 
-// ===== CLOSE MODAL =====
 
 function closeModal() {
 
@@ -73,7 +72,6 @@ function closeModal() {
 
 }
 
-// ===== SAVE TASK =====
 
 function saveTask() {
 
@@ -134,7 +132,7 @@ function saveTask() {
 
 }
 
-// ===== DELETE TASK =====
+
 
 function deleteTask(id) {
 
@@ -158,7 +156,7 @@ function deleteTask(id) {
 
 }
 
-// ===== RENDER TASKS =====
+
 
 function renderTasks() {
 
@@ -259,7 +257,7 @@ function renderTasks() {
 
     `;
 
-    // ===== DRAG START =====
+  
 
     card.addEventListener("dragstart", () => {
 
@@ -267,7 +265,6 @@ function renderTasks() {
 
     });
 
-    // ===== APPEND CARD =====
 
     if (task.status === "todo") {
 
@@ -295,7 +292,7 @@ function renderTasks() {
 
   });
 
-  // ===== UPDATE COUNTS =====
+ 
 
   document.querySelector("#todo .task-count").innerText = todoCount;
 
@@ -303,7 +300,6 @@ function renderTasks() {
 
   document.querySelector("#done .task-count").innerText = doneCount;
 
-  // ===== UPDATE STATS =====
 
   document.getElementById("totalTasks").innerText = tasks.length;
 
@@ -311,13 +307,12 @@ function renderTasks() {
 
   document.getElementById("doneTasks").innerText = doneCount;
 
-  // ===== SAVE STORAGE =====
 
   localStorage.setItem("tasks", JSON.stringify(tasks));
 
 }
 
-// ===== DRAG DROP =====
+
 
 document.querySelectorAll(".column").forEach(column => {
 
@@ -359,15 +354,14 @@ document.querySelectorAll(".column").forEach(column => {
 
 });
 
-// ===== SEARCH =====
+
 
 searchInput.addEventListener("input", renderTasks);
 
-// ===== FILTER =====
+
 
 filterInput.addEventListener("change", renderTasks);
 
-// ===== CLOSE MODAL OUTSIDE CLICK =====
 
 window.addEventListener("click", (e) => {
 
@@ -379,6 +373,5 @@ window.addEventListener("click", (e) => {
 
 });
 
-// ===== INITIAL RENDER =====
 
 renderTasks();

@@ -130,6 +130,7 @@ function changeimage(){
 function insert_data_on_page(data){
   
     console.log(data);
+    
     cityEl.innerText = data.name;
     countryEl.innerText = data.sys.country;
     tempEl.innerText = Math.round(data.main.temp);
