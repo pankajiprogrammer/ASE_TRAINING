@@ -22,58 +22,7 @@ These folders contain practice examples and concept-based learning exercises.
 
 ---
 
-# 📌 Main Projects
 
-## 1️⃣ Weather App
-
-A responsive Weather Application that provides real-time weather information using a weather API.
-
-### 🌦️ Live Demo
-
-🔗 https://pankajiprogrammer.github.io/ASE_TRAINING/TASK/11-weather_App_Task/
-
-### ✨ Features
-
-- Search weather by city name
-- Temperature details
-- Humidity & Wind Speed
-- Sunrise & Sunset timing
-- Dynamic weather icons
-- Responsive design
-
-### 🛠️ Technologies Used
-
-- HTML5
-- CSS3
-- JavaScript (ES6)
-- Weather API
-
----
-
-## 2️⃣ Dynamic Task Manager
-
-A responsive Task Management Application to manage daily tasks efficiently.
-
-### 📋 Live Demo
-
-🔗 https://pankajiprogrammer.github.io/ASE_TRAINING/TASK/10-Dynamic_Task_Manager_Task/
-
-### ✨ Features
-
-- Add tasks
-- Edit tasks
-- Delete tasks
-- Mark tasks as completed
-- Dynamic UI updates
-- Responsive sidebar layout
-
-### 🛠️ Technologies Used
-
-- HTML5
-- CSS3
-- JavaScript (ES6)
-
----
 
 # 📂 Repository Structure
 
@@ -90,9 +39,5 @@ ASE_TRAINING/
 │   ├── 07 - Position_practice/
 │   ├── 08-Bootstrap/
 │   └── 09-JS_Learning/
-│
-├── TASK/
-│   ├── 10-Dynamic_Task_Manager_Task/
-│   └── 11-weather_App_Task/
 │
 └── README.md
