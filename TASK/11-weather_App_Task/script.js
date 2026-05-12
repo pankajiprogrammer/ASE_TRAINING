@@ -3,6 +3,7 @@ const apiKey = "c01b1afecfb4eac074775446020c0e87";
 const base_url = "https://api.openweathermap.org/data/2.5/weather?q="
 
 
+g
 // this the array of images link
 const imgs_arr = [
     "https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -43,7 +44,6 @@ const img_1 = document.getElementById("img_1");
 const weather_icon = document.getElementById("weatherIcon")
 const container = document.getElementsByClassName("container")
 const humidity_l = document.getElementById("humidityBar")
-
 
 
 // this event on  side bar
