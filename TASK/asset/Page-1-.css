@@ -1,0 +1,180 @@
+/*This style sheet is for page-1*/
+
+/*This is fix margin and padding for all and work with box-sizing*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  font-family: "Agu Display", serif;
+  background: linear-gradient(135deg, #dfe9f3, #ffffff);
+  overflow-x: hidden;
+}
+
+body {
+  animation: B 2s ease;
+}
+
+/*Here I created a animation for loading page with bounce take help from w3school*/
+
+@keyframes B {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+
+  60% {
+    transform: scale(1.03);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+/*This css for main box with grid layout*/
+
+.main-box {
+  height: 100%;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+
+  padding: 40px;
+
+  justify-items: center;
+  align-items: center;
+  opacity: 0.8;
+}
+
+.box {
+  height: 300px;
+  width: 300px;
+  overflow: hidden;
+
+  border-radius: 20px;
+  transition:
+    transform 0.4s ease,
+    box-shadow 0.4s ease;
+}
+
+img {
+  height: 100%;
+  width: 100%;
+
+  object-fit: cover;
+  border-radius: 20px;
+
+  transition: transform 0.5s ease;
+}
+
+/*Here apply an hover effet for box with shadow*/
+
+.box:hover {
+  transform: scale(1.05);
+  box-shadow: 0 15px 30px black;
+}
+
+.box:hover img {
+  transform: scale(1.1);
+}
+
+.heading {
+  position: absolute;
+  z-index: 2;
+
+  top: 42%;
+  left: 30%;
+  text-align: center;
+}
+
+.heading h1 {
+  font-size: 3.5rem;
+  color: #222;
+
+  letter-spacing: 2px;
+}
+
+/*This css for button take intution from universe */
+
+button {
+  margin-top: 10px;
+  padding: 14px 30px;
+  font-size: 20px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #fff;
+  background: linear-gradient(45deg, #ff6a00, #ee0979);
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.4s ease;
+}
+
+button a {
+  text-decoration: none;
+  color: white;
+}
+
+button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 10px 25px black;
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+/*This meadquery for the tablet on medium screen*/
+
+@media (max-width: 1000px) {
+  .main-box {
+    grid-template-columns: repeat(2, 1fr);
+    height: auto;
+
+    padding: 20px;
+    gap: 40px;
+    opacity: 0.5;
+  }
+
+  .heading {
+    position: absolute;
+    z-index: 2;
+
+    top: 42%;
+    left: 5%;
+    text-align: center;
+  }
+
+  .box {
+    width: 100%;
+    max-width: 350px;
+  }
+}
+
+/*This mediquery for mobile or small screen*/
+
+@media (max-width: 480px) {
+  .main-box {
+    grid-template-columns: 1fr;
+    padding: 15px;
+    gap: 40px;
+    opacity: 0.5;
+  }
+
+  .box {
+    height: 250px;
+    width: 90%;
+  }
+
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+}
