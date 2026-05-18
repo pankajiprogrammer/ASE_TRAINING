@@ -1,0 +1,43 @@
+/*this css link with the model question paper for style them*/
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.margin-top-12px {
+  margin-top: 12px;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+ 
+}
+
+.main-div {
+  margin: 60px 80px;
+}
+
+.heading-div{
+  text-align: center;
+  text-decoration: underline;
+}
+
+.marks-section{
+  margin-top: 60px;
+}
+
+.margin-top-30px{
+  margin-top: 30px;
+}
+
+.note{
+  text-align: center;
+}
+
+.cut{
+  text-decoration:line-through;
+}
