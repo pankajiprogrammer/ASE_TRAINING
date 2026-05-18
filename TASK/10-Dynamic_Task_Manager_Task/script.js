@@ -1,24 +1,18 @@
 
-
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-
 
 
 let editIndex = null;
 let dragTaskId = null;
 
 
-
 const modal = document.getElementById("modal");
-
 const titleInput = document.getElementById("title");
 const descInput = document.getElementById("desc");
 const priorityInput = document.getElementById("priority");
 const statusInput = document.getElementById("status");
-
 const searchInput = document.getElementById("search");
 const filterInput = document.getElementById("filter");
-
 const todoColumn = document.getElementById("todo");
 const progressColumn = document.getElementById("progress");
 const doneColumn = document.getElementById("done");
@@ -299,7 +293,6 @@ function renderTasks() {
   document.querySelector("#progress .task-count").innerText = progressCount;
 
   document.querySelector("#done .task-count").innerText = doneCount;
-
 
   document.getElementById("totalTasks").innerText = tasks.length;
 
