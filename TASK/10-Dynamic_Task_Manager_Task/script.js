@@ -1,11 +1,12 @@
-
+// get tasks from local storage or initialze empty array
 let tasks = JSON.parse(localStorage.getItem("tasks")) || [];
 
-
+// keep track of editing task and dragging task
 let editIndex = null;
 let dragTaskId = null;
 
 
+// get dom elements
 const modal = document.getElementById("modal");
 const titleInput = document.getElementById("title");
 const descInput = document.getElementById("desc");
@@ -18,13 +19,13 @@ const progressColumn = document.getElementById("progress");
 const doneColumn = document.getElementById("done");
 
 
-
+// toggle sidebar menu
 function toggleMenu() {
   document.querySelector(".sidebar").classList.toggle("show");
 }
 
 
-
+// open model for new task or edit task
 function openModal(index = null) {
 
   modal.style.display = "flex";
@@ -59,14 +60,14 @@ function openModal(index = null) {
 
 }
 
-
+// close model
 function closeModal() {
 
   modal.style.display = "none";
 
 }
 
-
+// save task new or edited both
 function saveTask() {
 
   // Validation
@@ -127,7 +128,7 @@ function saveTask() {
 }
 
 
-
+// delete task
 function deleteTask(id) {
 
   const confirmDelete = confirm(
@@ -151,6 +152,7 @@ function deleteTask(id) {
 }
 
 
+// fuction to render tasks based on search , filter and status
 
 function renderTasks() {
 
@@ -366,5 +368,5 @@ window.addEventListener("click", (e) => {
 
 });
 
-
+// initial render
 renderTasks();
