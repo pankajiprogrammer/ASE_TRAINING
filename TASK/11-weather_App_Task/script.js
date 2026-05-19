@@ -97,7 +97,7 @@ function setBackground(temp) {
 
   else {
 
-    document.body.style.background = "linear-gradient(135deg, #b7efd9, #ecb6b6)";
+    document.body.style.background = "linear-gradient(135deg, #99dbd0, #d9d5b5)";
   }
 }
 
