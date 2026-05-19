@@ -1,7 +1,11 @@
+// this is the API key for OpenWeatherMap API.
 const apiKey = "c01b1afecfb4eac074775446020c0e87";
 
+// this is the base url for fetching weather data
 const base_url = "https://api.openweathermap.org/data/2.5/weather?q=";
 
+
+// this array contains the urls of background images 
 const imgs_arr = [
   "https://images.unsplash.com/photo-1592210454359-9043f067919b?q=80&w=1470&auto=format&fit=crop",
   "https://images.unsplash.com/photo-1580193769210-b8d1c049a7d9?q=80&w=1474&auto=format&fit=crop",
@@ -11,6 +15,7 @@ const imgs_arr = [
   "https://images.unsplash.com/photo-1569429512518-44dad00e88db?q=80&w=1470&auto=format&fit=crop"
 ];
 
+// selecting all the requird elements from the dom 
 const menuBtn = document.getElementById("menuBtn");
 const sidebar = document.getElementById("sidebar");
 const overlay = document.getElementById("overlay-bg");
@@ -37,6 +42,7 @@ const weather_icon = document.getElementById("weatherIcon");
 const humidity_l = document.getElementById("humidityBar");
 
 
+// event liseners for menu button and overlay 
 menuBtn.onclick = () => {
 
   sidebar.classList.add("active");
@@ -45,6 +51,7 @@ menuBtn.onclick = () => {
 };
 
 
+// event listener for overlay to close the sidebar 
 overlay.onclick = () => {
 
   sidebar.classList.remove("active");
@@ -53,6 +60,7 @@ overlay.onclick = () => {
 };
 
 
+// fuction to set the current date on the page
 function setDate() {
 
   const now = new Date();
@@ -61,6 +69,7 @@ function setDate() {
 }
 
 
+// formate the time 
 function formatTime(timeStamp) {
 
   const date = new Date(timeStamp * 1000);
@@ -71,6 +80,8 @@ function formatTime(timeStamp) {
   });
 }
 
+
+// set the background of the page based on the temp
 
 function setBackground(temp) {
 
@@ -91,6 +102,8 @@ function setBackground(temp) {
 }
 
 
+// fuction to provide insights based on the weather data
+
 function getInsight(temp, humidity, wind) {
 
   if (temp > 30 && humidity > 70) {
@@ -110,6 +123,7 @@ function getInsight(temp, humidity, wind) {
 }
 
 
+// fuction to set the weather icon based on icone code from the api
 function setWeatherIcon(iconCode) {
 
   const iconUrl = `https://openweathermap.org/img/wn/${iconCode}@2x.png`;
@@ -118,6 +132,7 @@ function setWeatherIcon(iconCode) {
 }
 
 
+// fuction to change the background image randomly
 function changeImage() {
 
   const randomIndex = Math.floor(Math.random() * imgs_arr.length);
@@ -125,6 +140,8 @@ function changeImage() {
   img_1.src = imgs_arr[randomIndex];
 }
 
+
+// fuction to insert the weather data on the page
 
 function insertDataOnPage(data) {
 
@@ -158,6 +175,7 @@ function insertDataOnPage(data) {
 }
 
 
+// fuction to show the weathere data on  the page 
 function showWeatherData(data) {
 
   if (data.cod != 200) {
@@ -188,6 +206,7 @@ function showWeatherData(data) {
 }
 
 
+// fuction to fetch the weather data from the api
 async function getWeather(city) {
 
   try {
@@ -210,7 +229,7 @@ async function getWeather(city) {
   }
 }
 
-
+// event for search button click to fetch the weather data for the city
 searchBtn.onclick = () => {
 
   const city = searchInput.value.trim();
@@ -222,6 +241,7 @@ searchBtn.onclick = () => {
 };
 
 
+// event for enter key press in the search imput fo fetch the weather data for the city
 searchInput.addEventListener("keypress", (event) => {
 
   if (event.key === "Enter") {
@@ -236,6 +256,8 @@ searchInput.addEventListener("keypress", (event) => {
 });
 
 
+// set the current date 
 setDate();
 
+// fetch the weather data for the default city
 getWeather("Pune");
